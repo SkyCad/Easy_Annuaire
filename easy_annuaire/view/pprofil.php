@@ -4,6 +4,7 @@ session_start();
 if (isset($_SESSION['user'])) {
     $user_id = $_SESSION['user_id'];
     $infos = recupinfo($user_id);
+    $contactinfo = recupcontact($user_id);
     $date_naissance = new DateTime($infos[0]['birthdate']);
     $date_actuelle = new DateTime();
     $diff = $date_actuelle->diff($date_naissance);
@@ -69,59 +70,61 @@ if (isset($_SESSION['user'])) {
                 
                     <div class="contact_list">
                         <h2>Vos Contacts</h2>
-                        <div class="contact">
-                            <div class="contact_infos">
-                                <?php
-                                if(isset($contactinfo[0]['contact_name'])){ ?>
-                                    <p>Nom : <?php  echo htmlspecialchars($contactinfo[0]['contact_name']); ?></p>
-                                    <p>Prénom : <?php  echo htmlspecialchars($contactinfo[0]['contact_firstname']); ?></p>
-                                    <p>Email : <?php  echo htmlspecialchars($contactinfo[0]['contact_mail']); ?></p>
-                                    <p>Numéro de téléphone : <?php  echo htmlspecialchars($contactinfo[0]['contact_phone']); ?></p>
-                                    <p>Deuxième Numéro : <?php  echo htmlspecialchars($contactinfo[0]['contact_phone_2']); ?></p>
-                                    <p>Adresse : <?php  echo htmlspecialchars($contactinfo[0]['contact_adress']); ?></p>
-                                    <?php }else{ ?>
-                                    <p>Nom : Aucun contact</p>
-                                    <p>Prénom : Aucun contact</p>
-                                    <p>Email : Aucun contact</p>
-                                    <p>Numéro de téléphone : Aucun contact</p>
-                                    <p>Deuxième Numéro : Aucun contact</p>
-                                    <p>Adresse : Aucun contact</p>
-                                <?php } ?>
-                            </div>
-                    </div>
-                </section>
+                            <div class="contact">
+                                <div class="contact_infos">
+                                    <?php
 
-                <footer>
-                    <div class="footer_container">
-                        <div class="logo_copyright">
-                            <div class="logo">
-                                <a href="paccueil.php"><img src="../assets/logo.png" alt="Logo"></a>
+                                    if (!empty($contactinfo) && is_array($contactinfo) && isset($contactinfo[0]['contact_name'])) { ?>
+                                        <p>Nom : <?php echo htmlspecialchars($contactinfo[0]['contact_name']); ?></p>
+                                        <p>Prénom : <?php echo htmlspecialchars($contactinfo[0]['contact_firstname']); ?></p>
+                                        <p>Email : <?php echo htmlspecialchars($contactinfo[0]['contact_mail']); ?></p>
+                                        <p>Numéro de téléphone : <?php echo htmlspecialchars($contactinfo[0]['contact_phone']); ?></p>
+                                        <p>Deuxième Numéro : <?php echo htmlspecialchars($contactinfo[0]['contact_phone2']); ?></p>
+                                        <p>Adresse : <?php echo htmlspecialchars($contactinfo[0]['contact_adress']); ?></p>
+                                    <?php } else { ?>
+                                        <p>Nom : Aucun contact</p>
+                                        <p>Prénom : Aucun contact</p>
+                                        <p>Email : Aucun contact</p>
+                                        <p>Numéro de téléphone : Aucun contact</p>
+                                        <p>Deuxième Numéro : Aucun contact</p>
+                                        <p>Adresse : Aucun contact</p>
+                                    <?php } ?>
+                                </div>
                             </div>
-                            <p>Copyright &copy 2024 EASYANNUAIRE</p>
                         </div>
+                        </section>
 
-                        <div class="form_contact">
-                            <div class="CTA">
-                                <h2>Nous Contacter :</h2>
-                            </div>
+                        <footer>
+                            <div class="footer_container">
+                                <div class="logo_copyright">
+                                    <div class="logo">
+                                        <a href="paccueil.php"><img src="../assets/logo.png" alt="Logo"></a>
+                                    </div>
+                                    <p>Copyright &copy 2024 EASYANNUAIRE</p>
+                                </div>
+
+                                <div class="form_contact">
+                                    <div class="CTA">
+                                        <h2>Nous Contacter :</h2>
+                                    </div>
                             
-                            <div class="mail_input">
-                                <form action="paccueil.php" method="post">
-                                    <input type="email" placeholder="Entrez votre Email">
-                                </form>
-                            </div>
-                        </div>
+                                    <div class="mail_input">
+                                        <form action="paccueil.php" method="post">
+                                            <input type="email" placeholder="Entrez votre Email">
+                                        </form>
+                                    </div>
+                                </div>
 
-                        <div class="media">
-                            <a href="#"><i class="fa-brands fa-facebook fa-2x"></i></a>
-                            <a href="#"><i class="fa-brands fa-instagram fa-2x"></i></a>
-                            <a href="#"><i class="fa-brands fa-x-twitter fa-2x"></i></a>
-                        </div>
-                    </div>
-                </footer>
-            </body>
-        </html>
-    <?php
+                                <div class="media">
+                                    <a href="#"><i class="fa-brands fa-facebook fa-2x"></i></a>
+                                    <a href="#"><i class="fa-brands fa-instagram fa-2x"></i></a>
+                                    <a href="#"><i class="fa-brands fa-x-twitter fa-2x"></i></a>
+                                </div>
+                            </div>
+                        </footer>
+                    </body>
+                </html>
+            <?php
 } else {
     header("Location: pconnexion.php");
 }

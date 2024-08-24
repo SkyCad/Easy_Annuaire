@@ -93,14 +93,22 @@ function recupinfo($user_id){
     // Récupérez les résultats sous forme de tableau associatif
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-function recupcontactinfo($user_id){
-    global $bdd;
-    $sqlUser = "SELECT * FROM contacts_users WHERE users_id = :users_id";
-    $stmt = $bdd->prepare($sqlUser);
-    $stmt->bindParam(":users_id",$user_id);
-    $stmt->execute();
+function recupcontact($user_id) {
+    global $bdd; // Use the global $bdd object for database connection
 
-    // Récupérez les résultats sous forme de tableau associatif
+    // Prepare the SQL query
+    $sqlUser = "SELECT * FROM contacts WHERE users_id = :users_id";
+    
+    // Prepare the statement
+    $stmt = $bdd->prepare($sqlUser);
+    
+    // Bind the user ID parameter
+    $stmt->bindParam(":users_id", $user_id, PDO::PARAM_INT);
+    
+    // Execute the query
+    $stmt->execute();
+    
+    // Fetch the results as an associative array
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 function setContact($user_id, $contact_mail, $contact_name, $contact_firstname, $contact_phone, $contact_phone2, $contact_adress) {
