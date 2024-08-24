@@ -55,7 +55,7 @@ $user_id = $_SESSION['user_id'];
 <section class="section_contact_create">
     <div class="container_form_create_contact">
         <form action="../controller/pcontroller.php" method="post">
-        <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+        <input type="hidden" name="users_id" value="<?php echo $user_id; ?>">
             <span>Contact Mail</span>
             <div class="contact_input">
                 <input type="email" name="contact_mail" id="contact_mail" placeholder="mail du contact">
@@ -75,7 +75,7 @@ $user_id = $_SESSION['user_id'];
             </div>
             <span>deuxième Numéro Téléphone Contact</span>
             <div class="contact_input">
-                <input type="tel" name="contact_phone_2" id="contact_phone" placeholder="Numéro de téléphone du contact">
+                <input type="tel" name="contact_phone2" id="contact_phone" placeholder="Numéro de téléphone du contact">
             </div>
             <span>Adresse Contact</span>
             <div class="contact_input">

@@ -103,18 +103,48 @@ function recupcontactinfo($user_id){
     // Récupérez les résultats sous forme de tableau associatif
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-function setContact($user_id, $contact_mail, $contact_name, $contact_firstname, $contact_phone, $contact_phone_2, $contact_adress){
+function setContact($user_id, $contact_mail, $contact_name, $contact_firstname, $contact_phone, $contact_phone2, $contact_adress) {
     global $bdd;
-    $sql = "INSERT INTO contacts (users_id, contact_mail, contact_name, contact_firstname, contact_phone, contact_phone_2, contact_adress) VALUES (:users_id, :contact_mail, :contact_name, :contact_firstname, :contact_phone, :contact_phone_2, :contact_adress)";
+
+    // Input validation (basic example)
+    if (empty($user_id) || empty($contact_mail) || empty($contact_name) || empty($contact_firstname) || empty($contact_phone) || empty($contact_adress)) {
+        error_log("Invalid input parameters");
+        return false; // Invalid input
+    }
+
+    $sql = "INSERT INTO contacts (users_id, contact_mail, contact_name, contact_firstname, contact_phone, contact_phone2, contact_adress) VALUES (:users_id, :contact_mail, :contact_name, :contact_firstname, :contact_phone, :contact_phone2, :contact_adress)";
     $stmt = $bdd->prepare($sql);
+
+    // Bind parameters
     $stmt->bindParam(":users_id", $user_id);
     $stmt->bindParam(":contact_mail", $contact_mail);
     $stmt->bindParam(":contact_name", $contact_name);
     $stmt->bindParam(":contact_firstname", $contact_firstname);
     $stmt->bindParam(":contact_phone", $contact_phone);
-    $stmt->bindParam(":contact_phone_2", $contact_phone_2);
+    $stmt->bindParam(":contact_phone2", $contact_phone2);
     $stmt->bindParam(":contact_adress", $contact_adress);
-    $stmt->execute();
+
+    // Log the SQL query and parameters
+    error_log("SQL Query: " . $sql);
+    error_log("Parameters: " . json_encode([
+        'users_id' => $user_id,
+        'contact_mail' => $contact_mail,
+        'contact_name' => $contact_name,
+        'contact_firstname' => $contact_firstname,
+        'contact_phone' => $contact_phone,
+        'contact_phone2' => $contact_phone2,
+        'contact_adress' => $contact_adress
+    ]));
+
+    // Execute and handle errors
+    try {
+        $stmt->execute();
+        return true; // Success
+    } catch (PDOException $e) {
+        // Log error or handle it as needed
+        error_log("Error inserting contact: " . $e->getMessage());
+        return false; // Failure
+    }
 }
 function update_profile($user_id, $new_name, $new_firstname, $new_email, $new_date_n, $new_psw){
     global $bdd;

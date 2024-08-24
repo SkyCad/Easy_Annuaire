@@ -136,16 +136,42 @@ if(isset($_POST['bmodif'])){
     }
 }
 
-if(isset($_POST['bcontactcreate'])){
-    $user_id = htmlspecialchars(strtolower(trim($_POST['user_id'])));
+if (isset($_POST['bcontactcreate'])) {
+    // Log received form data
+    error_log("Form data received: " . json_encode($_POST));
+
+    $user_id = htmlspecialchars(strtolower(trim($_POST['users_id'])));
     $contact_mail = htmlspecialchars(strtolower(trim($_POST['contact_mail'])));
     $contact_name = htmlspecialchars(trim($_POST['contact_name']));
     $contact_firstname = htmlspecialchars(trim($_POST['contact_firstname']));
     $contact_phone = htmlspecialchars(trim($_POST['contact_phone']));
-    $contact_phone_2 = htmlspecialchars(trim($_POST['contact_phone_2']));
+    $contact_phone2 = htmlspecialchars(trim($_POST['contact_phone2']));
     $contact_adress = htmlspecialchars(trim($_POST['contact_adress']));
-    setContact($user_id, $contact_mail, $contact_name, $contact_firstname, $contact_phone, $contact_phone_2, $contact_adress);
+
+    // Log sanitized data
+    error_log("Sanitized data: " . json_encode([
+        'user_id' => $user_id,
+        'contact_mail' => $contact_mail,
+        'contact_name' => $contact_name,
+        'contact_firstname' => $contact_firstname,
+        'contact_phone' => $contact_phone,
+        'contact_phone2' => $contact_phone2,
+        'contact_adress' => $contact_adress
+    ]));
+
+    // Call setContact function
+    $result = setContact($user_id, $contact_mail, $contact_name, $contact_firstname, $contact_phone, $contact_phone2, $contact_adress);
+
+    // Log result of setContact
+    if ($result) {
+        error_log("Contact successfully added.");
+    } else {
+        error_log("Failed to add contact.");
+    }
+
+    // Redirect to profile page
     header("Location: ../view/pprofil.php");
+    exit(); // Ensure the script stops executing after the redirect
 }
 
 //admin
