@@ -70,28 +70,28 @@ if (isset($_SESSION['user'])) {
                 
                     <div class="contact_list">
                         <h2>Vos Contacts</h2>
+                        <?php if (!empty($contactinfo) && is_array($contactinfo)) { ?>
+                            <?php foreach ($contactinfo as $contact) { ?>
                             <div class="contact">
                                 <div class="contact_infos">
-                                    <?php
-
-                                    if (!empty($contactinfo) && is_array($contactinfo) && isset($contactinfo[0]['contact_name'])) { ?>
-                                        <p>Nom : <?php echo htmlspecialchars($contactinfo[0]['contact_name']); ?></p>
-                                        <p>Prénom : <?php echo htmlspecialchars($contactinfo[0]['contact_firstname']); ?></p>
-                                        <p>Email : <?php echo htmlspecialchars($contactinfo[0]['contact_mail']); ?></p>
-                                        <p>Numéro de téléphone : <?php echo htmlspecialchars($contactinfo[0]['contact_phone']); ?></p>
-                                        <p>Deuxième Numéro : <?php echo htmlspecialchars($contactinfo[0]['contact_phone2']); ?></p>
-                                        <p>Adresse : <?php echo htmlspecialchars($contactinfo[0]['contact_adress']); ?></p>
-                                        <form action="../controller/pcontroller.php" method="post">
-                                            <input type="hidden" name="delete_contact_id" value="<?php echo $contactinfo[0]['contacts_id']; ?>">
-                                            <input type="submit" name="bSuppcontact" value="Supprimer">
-                                        </form>
-                                    <?php } else { ?>
-                                        <p>Aucun contact</p>
-                                    <?php } ?>
+                                    <p>Nom : <?php echo htmlspecialchars($contact['contact_name']); ?></p>
+                                    <p>Prénom : <?php echo htmlspecialchars($contact['contact_firstname']); ?></p>
+                                    <p>Email : <?php echo htmlspecialchars($contact['contact_mail']); ?></p>
+                                    <p>Numéro de téléphone : <?php echo htmlspecialchars($contact['contact_phone']); ?></p>
+                                    <p>Deuxième Numéro : <?php echo htmlspecialchars($contact['contact_phone2']); ?></p>
+                                    <p>Adresse : <?php echo htmlspecialchars($contact['contact_adress']); ?></p>
+                                    <form action="../controller/pcontroller.php" method="post">
+                                        <input type="hidden" name="delete_contact_id" value="<?php echo $contact['contacts_id']; ?>">
+                                        <input type="submit" name="bSuppcontact" value="Supprimer">
+                                    </form>
                                 </div>
                             </div>
-                        </div>
-                        </section>
+                        <?php } ?>
+                    <?php } else { ?>
+                        <p>Aucun contact</p>
+                    <?php } ?>
+                    </div>
+                </section>
 
                         <footer>
                             <div class="footer_container">
