@@ -81,13 +81,12 @@ if (isset($_SESSION['user'])) {
                                         <p>Numéro de téléphone : <?php echo htmlspecialchars($contactinfo[0]['contact_phone']); ?></p>
                                         <p>Deuxième Numéro : <?php echo htmlspecialchars($contactinfo[0]['contact_phone2']); ?></p>
                                         <p>Adresse : <?php echo htmlspecialchars($contactinfo[0]['contact_adress']); ?></p>
+                                        <form action="../controller/pcontroller.php" method="post">
+                                            <input type="hidden" name="delete_contact_id" value="<?php echo $contactinfo[0]['contacts_id']; ?>">
+                                            <input type="submit" name="bSuppcontact" value="Supprimer">
+                                        </form>
                                     <?php } else { ?>
-                                        <p>Nom : Aucun contact</p>
-                                        <p>Prénom : Aucun contact</p>
-                                        <p>Email : Aucun contact</p>
-                                        <p>Numéro de téléphone : Aucun contact</p>
-                                        <p>Deuxième Numéro : Aucun contact</p>
-                                        <p>Adresse : Aucun contact</p>
+                                        <p>Aucun contact</p>
                                     <?php } ?>
                                 </div>
                             </div>

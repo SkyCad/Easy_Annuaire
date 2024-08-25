@@ -173,6 +173,12 @@ if (isset($_POST['bcontactcreate'])) {
     header("Location: ../view/pprofil.php");
     exit(); // Ensure the script stops executing after the redirect
 }
+if (isset($_POST['bSuppcontact'])) {
+    $contact_id = $_POST['delete_contact_id'];
+    supprimercontact($contact_id);
+    header("Location: ../view/pprofil.php");
+    exit();
+}
 
 //admin
 if(isset($_POST['bSuppmembre'])){

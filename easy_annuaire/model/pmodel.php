@@ -154,6 +154,19 @@ function setContact($user_id, $contact_mail, $contact_name, $contact_firstname, 
         return false; // Failure
     }
 }
+function supprimercontact($contact_id) {
+    global $bdd;
+    $sql = "DELETE FROM contacts WHERE contacts_id = :contacts_id";
+    $stmt = $bdd->prepare($sql);
+    $stmt->bindParam(":contacts_id", $contact_id);
+    try {
+        $stmt->execute();
+        return true; // Success
+    } catch (PDOException $e) {
+        error_log("Error deleting contact: " . $e->getMessage());
+        return false; // Failure
+    }
+}
 function update_profile($user_id, $new_name, $new_firstname, $new_email, $new_date_n, $new_psw){
     global $bdd;
     $sql = "UPDATE users u
