@@ -253,11 +253,19 @@ function affichermembres(){
 }
 function suppmembre($membre_id){
     global $bdd;
-    $stmt = $bdd->prepare("DELETE FROM users WHERE users_id = :membre_id");
+
+    // Delete from users_info first
+    $stmt = $bdd->prepare("DELETE FROM users_info WHERE users_info_id = :membre_id");
     $stmt->bindParam(':membre_id', $membre_id);
     $stmt->execute();
 
-    $stmt = $bdd->prepare("DELETE FROM users_info WHERE users_info_id = :membre_id");
+    // Delete from contacts next
+    $stmt = $bdd->prepare("DELETE FROM contacts WHERE users_id = :membre_id");
+    $stmt->bindParam(':membre_id', $membre_id);
+    $stmt->execute();
+
+    // Finally, delete from users
+    $stmt = $bdd->prepare("DELETE FROM users WHERE users_id = :membre_id");
     $stmt->bindParam(':membre_id', $membre_id);
     $stmt->execute();
 }
