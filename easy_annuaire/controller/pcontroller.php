@@ -179,6 +179,19 @@ if (isset($_POST['bSuppcontact'])) {
     header("Location: ../view/pprofil.php");
     exit();
 }
+if(isset($_POST['bmodifcontact'])){
+    $contact_id = $_POST['contact_id'];
+    $user_id = $_POST['users_id'];
+    $contact_mail = $_POST['contact_mail'];
+    $contact_name = $_POST['contact_name'];
+    $contact_firstname = $_POST['contact_firstname'];
+    $contact_phone = $_POST['contact_phone'];
+    $contact_phone2 = $_POST['contact_phone2'];
+    $contact_adress = $_POST['contact_adress'];
+    
+    modifContact($user_id, $contact_mail, $contact_name, $contact_firstname, $contact_phone, $contact_phone2, $contact_adress, $contact_id);
+    header("Location: ../view/pprofil.php");
+}
 
 //admin
 if(isset($_POST['bSuppmembre'])){

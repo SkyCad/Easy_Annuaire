@@ -80,6 +80,10 @@ if (isset($_SESSION['user'])) {
                                     <p>Numéro de téléphone : <?php echo htmlspecialchars($contact['contact_phone']); ?></p>
                                     <p>Deuxième Numéro : <?php echo htmlspecialchars($contact['contact_phone2']); ?></p>
                                     <p>Adresse : <?php echo htmlspecialchars($contact['contact_adress']); ?></p>
+                                    <form action="../view/pmodifcontact.php?contact_id=<?php echo $contact['contacts_id']; ?>" method="post">
+                                        <input type="hidden" name="modify_contact_id" value="<?php echo $contact['contacts_id']; ?>">
+                                        <input type="submit" name="bModifcontact" value="Modifier">
+                                    </form>
                                     <form action="../controller/pcontroller.php" method="post">
                                         <input type="hidden" name="delete_contact_id" value="<?php echo $contact['contacts_id']; ?>">
                                         <input type="submit" name="bSuppcontact" value="Supprimer">

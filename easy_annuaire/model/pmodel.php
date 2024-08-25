@@ -167,6 +167,27 @@ function supprimercontact($contact_id) {
         return false; // Failure
     }
 }
+function modifContact($user_id, $contact_mail, $contact_name, $contact_firstname, $contact_phone, $contact_phone2, $contact_adress, $contact_id) {
+    global $bdd;
+    $stmt = $bdd->prepare("UPDATE contacts SET  
+        users_id = :user_id,
+        contact_mail = :contact_mail, 
+        contact_name = :contact_name, 
+        contact_firstname = :contact_firstname, 
+        contact_phone = :contact_phone, 
+        contact_phone2 = :contact_phone2, 
+        contact_adress = :contact_adress 
+        WHERE contacts_id = :contact_id");
+    $stmt->bindParam(':user_id', $user_id);
+    $stmt->bindParam(':contact_mail', $contact_mail);
+    $stmt->bindParam(':contact_name', $contact_name);
+    $stmt->bindParam(':contact_firstname', $contact_firstname);
+    $stmt->bindParam(':contact_phone', $contact_phone);
+    $stmt->bindParam(':contact_phone2', $contact_phone2);
+    $stmt->bindParam(':contact_adress', $contact_adress);
+    $stmt->bindParam(':contact_id', $contact_id);
+    $stmt->execute();
+}
 function update_profile($user_id, $new_name, $new_firstname, $new_email, $new_date_n, $new_psw){
     global $bdd;
     $sql = "UPDATE users u
