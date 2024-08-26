@@ -23,3 +23,5 @@ Les différents liens :
 -Le lien figjam structure bdd et analyse des datas : https://www.figma.com/board/dm3D2zP5E9CBGBSA2bR2F3/BDD-EasyAnnuaire?node-id=0-1&t=Ei9qf5czE22sOtB9-0
 
 Identifiants pour test : azerty@ifapme.be mdp : testtest1515 (compte admin)
+
+pour test compte non admin, inscription possible
