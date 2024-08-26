@@ -306,4 +306,13 @@ function afficherInfosComplet($user_id) {
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
+function modifuser($user_id, $new_name, $new_firstname, $new_email) {
+    global $bdd;
+    $stmt = $bdd->prepare("UPDATE users SET name = :new_name, firstname = :new_firstname, email = :new_email WHERE users_id = :user_id");
+    $stmt->bindParam(':new_name', $new_name);
+    $stmt->bindParam(':new_firstname', $new_firstname);
+    $stmt->bindParam(':new_email', $new_email);
+    $stmt->bindParam(':user_id', $user_id);
+    $stmt->execute();
+}
 ?>

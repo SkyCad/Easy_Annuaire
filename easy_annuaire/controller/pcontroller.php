@@ -289,5 +289,12 @@ if(isset($_POST['binscriptionmembre'])){
             break;
     }
 }
-
+if(isset($_POST['bmodifuser'])){
+    $user_id = $_POST['user_id'];
+    $new_name = !empty($_POST['name']) ? htmlspecialchars(trim($_POST['name'])) : null;
+    $new_firstname = !empty($_POST['firstname']) ? htmlspecialchars(trim($_POST['firstname'])) : null;
+    $new_email = !empty($_POST['email']) ? htmlspecialchars(trim($_POST['email'])) : null;
+    modifuser($user_id, $new_name, $new_firstname, $new_email);
+    header("Location: ../view/padmin.php");
+}
 ?>
