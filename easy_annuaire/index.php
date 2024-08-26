@@ -1,5 +1,5 @@
 <?php
 
-    header("Location:view/paccueil.php");
+    header("Location:view/pconnexion.php");
 ?>
        
