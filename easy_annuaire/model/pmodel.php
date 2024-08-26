@@ -265,6 +265,13 @@ function verifyConfirmationToken($token) {
     }
     return false;
 }
+function modifpsw($user_id, $new_password) {
+    global $bdd;
+    $stmt = $bdd->prepare("UPDATE users SET password = :new_password WHERE users_id = :user_id");
+    $stmt->bindParam(':new_password', $new_password);
+    $stmt->bindParam(':user_id', $user_id);
+    $stmt->execute();
+}
 //crud admin
 function affichermembres(){
     global $bdd;

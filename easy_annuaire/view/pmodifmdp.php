@@ -72,7 +72,7 @@ if(isset($_SESSION['user'])){
             </div>
 
             <input type="submit" name="bmodif" value="Modifier le profil">
-            <a href="pmodifpsw">Modifier le mot de passe</a>
+            <a href="pmodifpsw.php">Modifier le mot de passe</a>
         </form>
         
     </div>

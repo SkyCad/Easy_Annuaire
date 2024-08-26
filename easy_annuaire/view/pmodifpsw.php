@@ -5,8 +5,6 @@ if(isset($_SESSION['user'])){
     if(isset($_SESSION['Erreurpsw'])) {
             echo $_SESSION['Erreurpsw'];
         }
-    }else{
-        header("Location: pconnexion.php");
     }
     ?>
     <!DOCTYPE html>
@@ -54,7 +52,8 @@ if(isset($_SESSION['user'])){
     </div>
 
     <div class="container_form_modifmdp">
-        <form action="pmodifmdp.php" method="post">
+        <form action="../controller/pcontroller.php" method="post">
+            <input type="hidden" name="users_id" value="<?php echo $_SESSION['user_id'] ?>">
             <span>Nouveau Mot de passe</span>
             <div class="mdp_input">
                 <input type="password" name="new_password" placeholder="Nouveau Mot de passe">

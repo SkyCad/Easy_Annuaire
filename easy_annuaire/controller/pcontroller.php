@@ -135,7 +135,6 @@ if(isset($_POST['bmodif'])){
         header("Location: ../view/pconnexion.php");
     }
 }
-
 if (isset($_POST['bcontactcreate'])) {
     // Log received form data
     error_log("Form data received: " . json_encode($_POST));
@@ -191,6 +190,41 @@ if(isset($_POST['bmodifcontact'])){
     
     modifContact($user_id, $contact_mail, $contact_name, $contact_firstname, $contact_phone, $contact_phone2, $contact_adress, $contact_id);
     header("Location: ../view/pprofil.php");
+}
+if(isset($_POST['valid_new_password'])){
+    $user_id = $_POST['users_id'];
+    $new_password = $_POST['new_password'];
+    $new_Cpassword = $_POST['new_Cpassword'];
+    $error_code = "";
+    if(!preg_match('/\d/', $new_password)) { 
+        $error_code = "err_chiffre";
+    }
+    elseif (strlen($new_password) < 12) {
+        $error_code = "err_petit";
+    }
+    elseif($new_password!=$new_Cpassword){
+        $error_code = "err_confirm";
+    }
+    switch ($error_code) {
+        case "err_chiffre":
+            $_SESSION['Erreurpsw'] = "Le mot de passe doit contenir au moins un chiffre." ;
+            header("Location: ../view/pmodifpsw.php");
+            break;
+        case "err_petit":
+            $_SESSION['Erreurpsw'] = "Mot de passe trop court" ;
+            header("Location: ../view/pmodifpsw.php");
+            break;
+        case "err_confirm":
+            $_SESSION['Erreurpsw'] = "Confirmation incorrecte" ;
+            header("Location: ../view/pmodifpsw.php");
+            break;
+        default:
+            session_destroy();
+            $new_password = password_hash($new_password, PASSWORD_DEFAULT);
+            modifpsw($user_id, $new_password);
+            header("Location: ../view/pconnexion.php");
+            break;
+    }
 }
 
 //admin
