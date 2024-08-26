@@ -231,6 +231,7 @@ function generateConfirmationToken() {
     $timestamp = time(); // Timestamp actuel en secondes 
     return $token . '_' . $timestamp; // Concaténation du jeton et du timestamp
 }
+
 function saveConfirmationToken($email, $token) {
     global $bdd;
     $timestamp = date("Y-m-d H:i:s");

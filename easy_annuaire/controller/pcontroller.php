@@ -235,5 +235,59 @@ if(isset($_POST['bSuppmembre'])){
     header("Location: ../view/padmin.php");
     exit();
 }
+if(isset($_POST['binscriptionmembre'])){
+    $name = htmlspecialchars(strtolower(trim($_POST['name'])));
+    $first_name = htmlspecialchars(trim($_POST['firstname']));
+    $email = htmlspecialchars(trim($_POST['email']));
+    $cemail = htmlspecialchars(strtolower(trim($_POST['cemail'])));
+    $psw = htmlspecialchars(trim($_POST['psw']));
+    $cpsw = htmlspecialchars(trim($_POST['cpsw']));
+    $date_n = htmlspecialchars(trim($_POST['date_n']));
+    $timestamp_inscription = date("Y-m-d H:i:s");
+
+    if(!preg_match('/\d/', $psw)) { 
+        $error_code = "err_chiffre";
+    }
+    elseif (strlen($psw) < 12) {
+        $error_code = "err_petit";
+    }
+    elseif($email!=$cemail || $psw!=$cpsw){
+        $error_code = "err_confirm";
+    }
+    elseif(emailExists($email)==true){ 
+        $error_code = "err_exist";
+    }
+    elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error_code = "err_validate";
+    }
+
+    switch ($error_code) {
+        case "err_chiffre":
+            $_SESSION['Erreurin'] = "Le mot de passe doit contenir au moins un chiffre." ;
+            header("Location: ../view/padmin.php");
+            break;
+        case "err_petit":
+            $_SESSION['Erreurin'] = "Mot de passe trop court" ;
+            header("Location: ../view/padmin.php");
+            break;
+        case "err_confirm":
+            $_SESSION['Erreurin'] = "Confirmation incorrecte" ;
+            header("Location: ../view/padmin.php");
+            break;
+        case "err_exist":
+            $_SESSION['Erreurin'] = "Votre compte existe déjà" ;
+            header("Location: ../view/padmin.php");
+            break;
+        case "err_validate":
+            $_SESSION['Erreurin'] = "L'adresse email n'est pas valide." ;
+            header("Location: ../view/padmin.php");
+            break;
+        default:
+            $psw = password_hash($psw, PASSWORD_DEFAULT);
+            inscription_db($name, $first_name, $email, $psw, $date_n, $timestamp_inscription);
+            header("Location: ../view/padmin.php");
+            break;
+    }
+}
 
 ?>
