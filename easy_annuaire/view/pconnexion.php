@@ -24,15 +24,8 @@
         <div class="logo">
             <img src="../assets/logo.png" alt="Logo">
         </div>
-
         <div class="modif_mdp">
             <h1>Connexion</h1>
-        </div>
-
-        <div></div>
-
-        <div>
-           <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
         </div>
     </div>
 </header>

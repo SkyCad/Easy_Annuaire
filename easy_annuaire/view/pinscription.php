@@ -19,15 +19,7 @@
         <div class="modif_mdp">
             <h1>Inscription</h1>
         </div>
-
-        <div></div>
-
-        <div>
-           <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-        </div>
-    </div>
 </header>
-
 <section class="section_inscription">
     <div class="container_form_inscription">
         <form action="../controller/pcontroller.php" method="POST">
